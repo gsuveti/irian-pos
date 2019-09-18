@@ -1,8 +1,8 @@
-<div style="text-align:center">
-  <h1>Welcome to web!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png"
-  />
+<form #productForm="ngForm" (ngSubmit)="saveProduct(productForm)">
+  <input name="name" ngModel>
+  <button type="submit">Save</button>
+</form>
+
+<div *ngFor="let product of products$ | async">
+  <h4>{{product.name}}</h4>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
