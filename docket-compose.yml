@@ -2,7 +2,22 @@ version: "3"
 services:
   couchdb:
     image: couchdb:latest
-    ports:
-      - "5984:5984"
     volumes:
       - ./couchdb/data:/opt/couchdb/data
+    ports:
+      - "5984:5984"
+
+  couchbase:
+    image: couchbase:community-6.0.0
+    ports:
+      - "8091-8094:8091-8094"
+      - "11210:11210"
+
+  couchbase-sync-gateway:
+    image: couchbase/sync-gateway:2.6.0-community
+    restart: always
+    volumes:
+      - ./couchbase/data:/opt/couchbase-sync-gateway/data
+      - ./couchbase/sync_gateway:/etc/sync_gateway
+    ports:
+      - "4984-4985:4984-4985"

@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Message} from '@irian-pos/api-interfaces';
 import {PouchDBService} from '../pouch-db.service';
 import {NgForm} from '@angular/forms';
-import {switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'irian-pos-root',
@@ -12,24 +11,30 @@ import {switchMap, tap} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   hello$ = this.http.get<Message>('/api/hello');
-  products$;
+  products;
 
   constructor(private http: HttpClient, private db: PouchDBService) {
 
   }
 
   ngOnInit(): void {
-    this.products$ = this.db.listener.pipe(
-      tap((data) => {
-        console.log(data);
-      }),
-      switchMap((data) => {
-        return this.db.getProducts();
-      })
-    );
+    this.getProducts();
+    this.db.listener.subscribe((change) => {
+      this.getProducts();
+    })
+  }
+
+  getProducts() {
+    this.db.getProducts().subscribe((data) => {
+      this.products = [...data];
+    });
   }
 
   saveProduct(form: NgForm) {
     this.db.saveProduct(form.value);
+  }
+
+  removeProduct(_id: string, _rev: string) {
+    this.db.removeProduct(_id, _rev);
   }
 }

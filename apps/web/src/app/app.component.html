@@ -1,8 +1,24 @@
-<form #productForm="ngForm" (ngSubmit)="saveProduct(productForm)">
-  <input name="name" ngModel>
-  <button type="submit">Save</button>
-</form>
+<div class="container">
+  <form class="beer-form  my-lg" #productForm="ngForm" (ngSubmit)="saveProduct(productForm)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name="name" id="name" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="name">Description</label>
+      <input name="description" id="description" class="form-control" ngModel>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Add</button>
+  </form>
 
-<div *ngFor="let product of products$ | async">
-  <h4>{{product.name}}</h4>
+  <div class="list-group">
+    <div class="list-group-item" *ngFor="let product of products">
+      <small>{{product._id}}</small><button class="btn btn-sm btn-link" (click)="removeProduct(product._id, product._rev)">Delete</button>
+      <h4>{{product.name}}</h4>
+      <p *ngIf="product.description">{{product.description}}</p>
+      <!--<pre>{{product | json}}</pre>-->
+    </div>
+  </div>
+
+
 </div>

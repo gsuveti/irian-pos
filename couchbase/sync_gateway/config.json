@@ -1,0 +1,40 @@
+{
+  "logging": {
+    "console": {
+      "log_keys": [
+        "*"
+      ]
+    }
+  },
+  "databases": {
+    "db": {
+      "server": "http://couchbase:8091",
+      "bucket": "beer-sample",
+      "username": "sync_gateway",
+      "password": "sync_gateway",
+      "enable_shared_bucket_access": true,
+      "import_docs": true,
+      "num_index_replicas": 0,
+      "users": {
+        "GUEST": {
+          "disabled": false,
+          "admin_channels": [
+            "*"
+          ]
+        }
+      }
+    }
+  },
+  "CORS": {
+    "Origin": [
+      "http://localhost:4200"
+    ],
+    "LoginOrigin": [
+      "http://localhost:4200"
+    ],
+    "Headers": [
+      "Content-Type"
+    ],
+    "MaxAge": 17280000
+  }
+}
