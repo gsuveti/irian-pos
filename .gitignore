@@ -40,3 +40,7 @@ Thumbs.db
 
 /couchdb/data
 /couchbase/data
+/www
+/platforms
+/plugins
+.gradle
