@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducts();
     this.db.listener.subscribe((change) => {
       this.getProducts();
     })

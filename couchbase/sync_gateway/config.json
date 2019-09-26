@@ -17,12 +17,29 @@
       "num_index_replicas": 0,
       "users": {
         "GUEST": {
-          "disabled": false,
+          "disabled": true,
           "admin_channels": [
-            "*"
+            "!"
+          ]
+        },
+        "john": {
+          "password": "pass",
+          "admin_channels": [
+            "California"
+          ]
+        },
+        "george": {
+          "password": "pass",
+          "admin_channels": [
+            "Alaska"
           ]
         }
-      }
+      },
+      "sync": `function(doc, oldDoc){
+                if(doc.state){
+                  channel(doc.state);
+                };
+      }`
     }
   },
   "CORS": {
