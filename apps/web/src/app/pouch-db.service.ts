@@ -4,7 +4,6 @@ import PouchDB, {Database} from 'pouchdb';
 // @ts-ignore
 import PouchFind from 'pouchdb-find';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
 
 export const POUCHDB_SERVER_URL = new InjectionToken("POUCHDB_SERVER_URL");
 
@@ -16,49 +15,39 @@ export class PouchDBService {
   private isInstantiated: boolean;
   private productsDB: PouchDB.Database;
   private remoteProductsDB: PouchDB.Database;
-  private user = "george";
 
-  constructor(private zone: NgZone, @Inject(POUCHDB_SERVER_URL) private pouchDBServerURL: string, private http: HttpClient) {
-    if (!this.isInstantiated) {
-      this.http.post(`${pouchDBServerURL}/_session`, {
-        name: this.user,
-        password: 'pass'
-      }, {
-        headers: {
-          'Content-Type': "application/json",
-          "Accept": "*/*"
-        },
-        withCredentials: true,
-      }).subscribe(data => {
+  constructor(private zone: NgZone, @Inject(POUCHDB_SERVER_URL) private pouchDBServerURL: string) {
 
-        PouchDB.plugin(PouchFind);
-
-        this.productsDB = new PouchDB(`${this.user}_db`);
-        this.remoteProductsDB = new PouchDB(pouchDBServerURL);
-
-        this.productsDB.createIndex({
-          index: {fields: ['state']}
-        });
-
-        this.productsDB.sync(this.remoteProductsDB, {
-          live: true,
-        }).on('change', (change) => {
-          console.log("yay, we're in sync!");
-          console.log(change);
-          this.zone.run(() => {
-            this.listener.emit();
-          });
-        }).on('error', (err) => {
-          console.log("boo, we hit an error!");
-          console.log(err);
-        });
-
-        this.listener.emit();
-        this.isInstantiated = true;
-      });
-    }
   }
 
+
+  createDB(){
+    if (!this.isInstantiated) {
+      PouchDB.plugin(PouchFind);
+
+      this.productsDB = new PouchDB(`db`);
+      this.remoteProductsDB = new PouchDB(this.pouchDBServerURL);
+
+      this.productsDB.createIndex({
+        index: {fields: ['state']}
+      });
+
+      this.productsDB.sync(this.remoteProductsDB, {
+        live: true,
+      }).on('change', (change) => {
+        console.log("yay, we're in sync!");
+        console.log(change);
+        this.zone.run(() => {
+          this.listener.emit();
+        });
+      }).on('error', (err) => {
+        console.log("boo, we hit an error!");
+        console.log(err);
+      });
+
+      this.isInstantiated = true;
+    }
+  }
 
   getProducts(): Observable<any> {
     console.log("find data in local store");

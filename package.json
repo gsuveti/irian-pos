@@ -57,6 +57,7 @@
     "electron-window-manager": "^1.0.6",
     "iohook": "^0.6.1",
     "ionic": "^5.4.1",
+    "ngx-cookie-service": "^2.2.0",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "reflect-metadata": "^0.1.12",

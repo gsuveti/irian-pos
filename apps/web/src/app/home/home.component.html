@@ -1,0 +1,33 @@
+<nav class="navbar navbar-light bg-light fixed-top  justify-content-between">
+  <a class="navbar-brand" href="#">irian POS</a>
+  <button class="btn btn-outline-secondary d-flex align-items-center" (click)="logout()">
+    Logout <i class="ml-xs material-icons">exit_to_app</i>
+  </button>
+</nav>
+<div class="pseudo-navbar py-xl"></div>
+<div class="container">
+
+  <form class="beer-form  my-lg" #productForm="ngForm" (ngSubmit)="saveProduct(productForm)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name="name" id="name" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="name">Description</label>
+      <input name="description" id="description" class="form-control" ngModel>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Add</button>
+  </form>
+
+  <div class="list-group">
+    <div class="list-group-item" *ngFor="let product of products">
+      <small>{{product._id}}</small>
+      <button class="btn btn-sm btn-link" (click)="removeProduct(product._id, product._rev)">Delete</button>
+      <h4>{{product.name}}</h4>
+      <p *ngIf="product.description">{{product.description}}</p>
+      <!--<pre>{{product | json}}</pre>-->
+    </div>
+  </div>
+
+
+</div>
