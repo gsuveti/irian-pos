@@ -49,3 +49,9 @@ $margin: -12px;
 }
 
 @import url(https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~simple-keyboard/build/css/index.css';

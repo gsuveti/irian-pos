@@ -6,21 +6,21 @@
 </nav>
 <div class="pseudo-navbar py-xl"></div>
 <div class="container">
-
-  <form class="beer-form  my-lg" #productForm="ngForm" (ngSubmit)="saveProduct(productForm)">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input name="name" id="name" class="form-control" ngModel>
-    </div>
-    <div class="form-group">
-      <label for="name">Description</label>
-      <input name="description" id="description" class="form-control" ngModel>
-    </div>
-    <button class="btn btn-outline-primary" type="submit">Add</button>
+  <form class="d-flex">
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Search beer" aria-label="Search beer" [matAutocomplete]="auto"
+             [formControl]="beerCtrl">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let beer of filteredBeers | async" [value]="beer.name">
+          <span>{{beer.name}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button (click)="openDialog()">Add beer</button>
   </form>
 
   <div class="list-group">
-    <div class="list-group-item" *ngFor="let product of products">
+    <div class="list-group-item" *ngFor="let product of filteredBeers | async">
       <small>{{product._id}}</small>
       <button class="btn btn-sm btn-link" (click)="removeProduct(product._id, product._rev)">Delete</button>
       <h4>{{product.name}}</h4>
@@ -30,4 +30,15 @@
   </div>
 
 
+  <div class="footer">
+    <div [ngClass]="{'keyboard-wrapper':true, 'on-screen':!showKeyboard}">
+      <div class="container">
+        <div class="simple-keyboard"></div>
+      </div>
+    </div>
+    <button class="keyboard-toggle" mat-mini-fab color="primary" (click)="toggleKeyboard()">
+      <mat-icon *ngIf="!showKeyboard">keyboard</mat-icon>
+      <mat-icon *ngIf="showKeyboard">keyboard_hide</mat-icon>
+    </button>
+  </div>
 </div>

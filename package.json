@@ -66,6 +66,7 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.4.0",
     "screen": "^0.2.10",
+    "simple-keyboard": "^2.26.5",
     "zone.js": "^0.9.1"
   },
   "devDependencies": {

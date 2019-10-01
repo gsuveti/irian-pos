@@ -1,6 +1,6 @@
 import {EventEmitter, Inject, Injectable, InjectionToken, NgZone} from '@angular/core';
 // @ts-ignore
-import PouchDB, {Database} from 'pouchdb';
+import PouchDB from 'pouchdb';
 // @ts-ignore
 import PouchFind from 'pouchdb-find';
 import {Observable} from 'rxjs';
@@ -21,7 +21,7 @@ export class PouchDBService {
   }
 
 
-  createDB(){
+  createDB(): PouchDB.Database {
     if (!this.isInstantiated) {
       PouchDB.plugin(PouchFind);
 
@@ -47,6 +47,7 @@ export class PouchDBService {
 
       this.isInstantiated = true;
     }
+    return this.productsDB;
   }
 
   getProducts(): Observable<any> {
