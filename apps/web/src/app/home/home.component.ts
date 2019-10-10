@@ -8,7 +8,7 @@ import {map, startWith} from 'rxjs/operators';
 import Keyboard from 'simple-keyboard';
 import {NewBeerDialogComponent} from '../new-beer-dialog/new-beer-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {ElectronIpcService} from '../electron-ipc.service';
+import {ElectronService} from 'ngx-electron';
 
 @Component({
   selector: 'irian-pos-home',
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               private router: Router,
               private sessionService: CouchbaseSessionService,
               public dialog: MatDialog,
-              private electronIpcService: ElectronIpcService,
+              private electronService: ElectronService,
   ) {
 
     this.filteredBeers = this.beerCtrl.valueChanges
@@ -113,12 +113,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   newWindow() {
-    // window.open('/home', '_blank', 'nodeIntegration=no', )
-    // const {BrowserWindow} = this.electronService.remote;
-    // const win = new BrowserWindow({width: 800, height: 600, x: 3360})
-    // win.loadURL('https://github.com');
+    const {BrowserWindow, screen} = this.electronService.remote;
+    const displays = screen.getAllDisplays();
+    const externalDisplay = displays[2];
 
-    this.electronIpcService.send('open-second-page')
+    const win = new BrowserWindow({
+      x: externalDisplay.bounds.x,
+      y: externalDisplay.bounds.y,
+    });
+    win.maximize();
+    win.setFullScreen(true);
+    win.loadURL('http://localhost:4200/orders');
   }
 
   private _filterBeers(value: string): any[] {
