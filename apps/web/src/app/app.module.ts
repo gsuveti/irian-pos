@@ -18,21 +18,25 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NewBeerDialogComponent} from './new-beer-dialog/new-beer-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {NgxElectronModule} from 'ngx-electron';
+import {OrdersComponent} from './orders/orders.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, NewBeerDialogComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, NewBeerDialogComponent, OrdersComponent],
   imports: [BrowserModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       {path: "", component: HomeComponent, canActivate: [AuthGuardService]},
-      {path: "login", component: LoginComponent}
+      {path: "login", component: LoginComponent},
+      {path: "orders", component: OrdersComponent}
     ]),
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatInputModule, MatIconModule, MatButtonModule, MatDialogModule
+    MatInputModule, MatIconModule, MatButtonModule, MatDialogModule,
+    NgxElectronModule
   ],
   providers: [
     CookieService,

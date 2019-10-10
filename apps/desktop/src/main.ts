@@ -1,14 +1,45 @@
+import * as electron from "electron";
 import {app, BrowserWindow} from "electron";
 
 let mainWindow: BrowserWindow;
+const ipc = electron.ipcMain;
 
-function createWindow() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
+ipc.on('open-second-page', () => {
+  console.log('open second page')
+  const displays = electron.screen.getAllDisplays();
+  const externalDisplay = displays[2];
+
+  const window = new BrowserWindow({
     height: 600,
     webPreferences: {},
     width: 800,
+    x: externalDisplay.bounds.x,
+    y: externalDisplay.bounds.y,
   });
+  window.maximize();
+  window.setFullScreen(true);
+
+  // and load the index.html of the app.
+  window.loadURL("http://localhost:4200/orders");
+});
+
+function createWindow() {
+
+  const displays = electron.screen.getAllDisplays();
+  const externalDisplay = displays[1];
+  console.log(displays);
+
+
+  // Create the browser window.
+  mainWindow = new BrowserWindow({
+    height: 600,
+    webPreferences: {nodeIntegration: true},
+    width: 800,
+    x: externalDisplay.bounds.x,
+    y: externalDisplay.bounds.y,
+  });
+  mainWindow.maximize();
+  mainWindow.setFullScreen(true);
 
   // and load the index.html of the app.
   mainWindow.loadURL("http://localhost:4200/");
@@ -23,6 +54,8 @@ function createWindow() {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+
 }
 
 // This method will be called when Electron has finished

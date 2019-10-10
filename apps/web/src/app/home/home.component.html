@@ -1,11 +1,17 @@
 <nav class="navbar navbar-light bg-light fixed-top  justify-content-between">
   <a class="navbar-brand" href="#">irian POS</a>
-  <button class="btn btn-outline-secondary d-flex align-items-center" (click)="logout()">
-    Logout <i class="ml-xs material-icons">exit_to_app</i>
-  </button>
+  <div class="d-flex">
+    <button type="button" class="btn btn-link ml" (click)="newWindow()">
+      <i class="pt-xs material-icons">shopping_cart</i>
+    </button>
+    <button class="btn btn-outline-secondary d-flex align-items-center" (click)="logout()">
+      Logout <i class="ml-xs material-icons">exit_to_app</i>
+    </button>
+  </div>
 </nav>
 <div class="pseudo-navbar py-xl"></div>
 <div class="container">
+
   <form class="d-flex">
     <mat-form-field class="w-100">
       <input matInput placeholder="Search beer" aria-label="Search beer" [matAutocomplete]="auto"

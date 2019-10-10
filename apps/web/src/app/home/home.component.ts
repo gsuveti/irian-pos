@@ -8,6 +8,7 @@ import {map, startWith} from 'rxjs/operators';
 import Keyboard from 'simple-keyboard';
 import {NewBeerDialogComponent} from '../new-beer-dialog/new-beer-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {ElectronIpcService} from '../electron-ipc.service';
 
 @Component({
   selector: 'irian-pos-home',
@@ -25,7 +26,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(private db: PouchDBService,
               private router: Router,
               private sessionService: CouchbaseSessionService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private electronIpcService: ElectronIpcService,
+  ) {
 
     this.filteredBeers = this.beerCtrl.valueChanges
       .pipe(
@@ -107,6 +110,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   toggleKeyboard() {
     this.showKeyboard = !this.showKeyboard;
+  }
+
+  newWindow() {
+    // window.open('/home', '_blank', 'nodeIntegration=no', )
+    // const {BrowserWindow} = this.electronService.remote;
+    // const win = new BrowserWindow({width: 800, height: 600, x: 3360})
+    // win.loadURL('https://github.com');
+
+    this.electronIpcService.send('open-second-page')
   }
 
   private _filterBeers(value: string): any[] {
