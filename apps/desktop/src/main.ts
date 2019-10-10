@@ -22,6 +22,7 @@ function createWindow() {
     width: 800,
     x: externalDisplay.bounds.x,
     y: externalDisplay.bounds.y,
+    alwaysOnTop:true
   });
   mainWindow.maximize();
   mainWindow.setFullScreen(true);
