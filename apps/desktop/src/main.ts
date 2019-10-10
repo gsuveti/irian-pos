@@ -2,25 +2,10 @@ import * as electron from "electron";
 import {app, BrowserWindow} from "electron";
 
 let mainWindow: BrowserWindow;
-const ipc = electron.ipcMain;
 
-ipc.on('open-second-page', () => {
-  console.log('open second page')
-  const displays = electron.screen.getAllDisplays();
-  const externalDisplay = displays[2];
-
-  const window = new BrowserWindow({
-    height: 600,
-    webPreferences: {},
-    width: 800,
-    x: externalDisplay.bounds.x,
-    y: externalDisplay.bounds.y,
-  });
-  window.maximize();
-  window.setFullScreen(true);
-
-  // and load the index.html of the app.
-  window.loadURL("http://localhost:4200/orders");
+electron.ipcMain.on('open-second-page-event', (event, args) => {
+  console.log('open second page');
+  console.log(args);
 });
 
 function createWindow() {

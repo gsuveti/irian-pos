@@ -113,6 +113,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   newWindow() {
+    const {ipcRenderer} = this.electronService;
     const {BrowserWindow, screen} = this.electronService.remote;
     const displays = screen.getAllDisplays();
     const externalDisplay = displays[2];
@@ -123,7 +124,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
     win.maximize();
     win.setFullScreen(true);
-    win.loadURL('http://localhost:4200/orders');
+    win.loadURL('http://localhost:4200/orders').then();
+    ipcRenderer.send('open-second-page-event', {foo: 'bar'})
   }
 
   private _filterBeers(value: string): any[] {
