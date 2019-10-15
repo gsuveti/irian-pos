@@ -62,11 +62,13 @@
     "ionic": "^5.4.1",
     "ngx-cookie-service": "^2.2.0",
     "ngx-electron": "^2.1.1",
+    "node-emv": "^1.0.22",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.4.0",
     "screen": "^0.2.10",
+    "serialport": "^7.1.5",
     "simple-keyboard": "^2.26.5",
     "zone.js": "^0.9.1"
   },
