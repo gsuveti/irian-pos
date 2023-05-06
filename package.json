@@ -77,7 +77,7 @@
     "@angular/cli": "8.3.3",
     "@angular/compiler-cli": "^8.2.0",
     "@angular/language-service": "^8.2.0",
-    "@capacitor/cli": "1.2.1",
+    "@capacitor/cli": "5.0.1",
     "@ionic/angular-toolkit": "latest",
     "@nestjs/schematics": "^6.3.0",
     "@nestjs/testing": "^6.2.4",
